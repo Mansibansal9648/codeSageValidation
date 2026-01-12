@@ -24,8 +24,13 @@ jobs:
           path: ~/.m2
           key: maven-${{ hashFiles('**/pom.xml') }}
 
-      - name: Run tests + coverage
+      - name: Run tests + JaCoCo
         run: mvn clean verify
+
+      - name: Debug JaCoCo XML
+        run: |
+          echo "Looking for jacoco.xml"
+          find . -name jacoco.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -36,3 +41,4 @@ jobs:
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORG }}
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+            -Dsonar.java.coveragePlugin=jacoco
