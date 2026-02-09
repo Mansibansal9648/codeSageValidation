@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import LoginForm from './LoginForm';
 
 function App() {
   return (
     <>
-    basic UI setup to confirm project is running
+    <LoginForm />
     </>
   );
 }
